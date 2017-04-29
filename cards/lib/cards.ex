@@ -30,8 +30,14 @@ defmodule Cards do
   def load(filename) do
     case File.read(filename) do
       {:ok, binary} -> :erlang.binary_to_term binary
-      {:error, reason} -> "That file does not exist"
+      {:error, _reason} -> "That file does not exist" 
     end
+  end
+  
+  def create_hand(hand_size) do
+    Cards.create_deck
+    |> Cards.shuffle #automatically inject deck into deal
+    |> Cards.deal(hand_size)
   end
   
 end
